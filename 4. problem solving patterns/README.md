@@ -13,7 +13,7 @@
 이 패턴은 오브젝트나 set을 사용하여 복수의 입력값들을 서로 비교하거나, 어떤 값을 저장하거나, 어떤 값이 나타난 빈도수를 저장하여 문제를 해결하는 패턴이다. \
 주로 배열이나 문자열에 대한 for 중첩문, 또는 O(n\*n) 연산을 대신할 때 사용한다.
 
-예) Write a function called same, which accepts two arrays. The function should return true if every value in the array has its corresponding value squared in the second array. The frequency of values must be the same. \
+예-1) Write a function called same, which accepts two arrays. The function should return true if every value in the array has its corresponding value squared in the second array. The frequency of values must be the same. \
 same([1, 2, 3], [4, 1, 9]) \
 same([1, 2, 3], [1, 9]) \
 same([1, 2, 1], [4, 4, 1])
@@ -42,6 +42,41 @@ function same(arr1, arr2) {
   }
 
   return true;
+}
+```
+
+예-2) Anagrams - given two strings, write a function to determine if the second string is an anagram of the first. An anagram is a word, phrase, or name formed by rearranging the letters of another, such as ‘cinema’, formed from ‘iceman’.
+
+validAnagram(‘ ’, ‘ ’) //true \
+validAnagram(‘aaz ’, ‘zza ’) //false \
+validAnagram(‘anagram’, ‘nagagram’) //true \
+validAnagram(‘rat’, ‘car’) //false \
+validAnagram(‘awesom’, ‘awesome’) //false
+
+```javascript
+function validAnagram(str1, str2) {
+  if (str1.length !== str2.length) return false;
+  if (str1 === "" && str2 === "") return true;
+
+  const objFromStr1 = {};
+
+  for (let i = 0; i < str1.length; i++) {
+    let letter = str1[i];
+    objFromStr1[letter]
+      ? (objFromStr1[letter] += 1)
+      : (objFromStr1[letter] = 1);
+  }
+
+  for (let i = 0; i < str2.length; i++) {
+    let letter = str2[i];
+
+    if (objFromStr1[letter]) {
+      objFromStr1[letter] -= 1;
+    } else {
+      // can't find letter of letter is zero then it's not an anagram.
+      return false;
+    }
+  }
 }
 ```
 
