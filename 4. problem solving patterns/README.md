@@ -81,3 +81,28 @@ function validAnagram(str1, str2) {
 ```
 
 ## `2. multiple pointers`
+
+인덱스나 자리값(?)에 대응하는 '포인터'를 만들고 조건에 따라서 처음, 중간 또는 끝으로 움직여가는 패턴이다. \
+⭐️ 최소한의 공간 복잡도로 문제를 해결할 수 있다.
+
+예) write a function call sumZero which accepts a `sorted` array of integers. The function should find the `first` pair where the sum is 0. Return an array that includes both values that sum to zero or undefined if a pair does not exist. \
+sumZero([-3, -2, -1, 0, 1, 2, 3]) // return [-3, 3] \
+sumZero([-2, 0, 1, 3]) // undefined \
+sumZero([1, 2, 3]) // undefined
+
+```javascript
+function sumZero(arr) {
+  let left = 0;
+  let right = arr.length - 1;
+
+  while (left < right) {
+    if (arr[left] + arr[right] === 0) {
+      return [arr[left], arr[right]];
+    } else if (arr[left] + arr[right] > 0) {
+      right -= 1;
+    } else {
+      left += 1;
+    }
+  }
+}
+```
