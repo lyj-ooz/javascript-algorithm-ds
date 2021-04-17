@@ -85,7 +85,7 @@ function validAnagram(str1, str2) {
 인덱스나 자리값(?)에 대응하는 '포인터'를 만들고 조건에 따라서 처음, 중간 또는 끝으로 움직여가는 패턴이다. \
 ⭐️ 최소한의 공간 복잡도로 문제를 해결할 수 있다.
 
-예) write a function call sumZero which accepts a `sorted` array of integers. The function should find the `first` pair where the sum is 0. Return an array that includes both values that sum to zero or undefined if a pair does not exist. \
+예-1) write a function call sumZero which accepts a `sorted` array of integers. The function should find the `first` pair where the sum is 0. Return an array that includes both values that sum to zero or undefined if a pair does not exist. \
 sumZero([-3, -2, -1, 0, 1, 2, 3]) // return [-3, 3] \
 sumZero([-2, 0, 1, 3]) // undefined \
 sumZero([1, 2, 3]) // undefined
@@ -102,6 +102,62 @@ function sumZero(arr) {
       right -= 1;
     } else {
       left += 1;
+    }
+  }
+}
+```
+
+예-2) Implement a function called countUniqueValues, which accepts a sorted array, and counts the unique values in the array. There can be negative numbers in the array, but it will always be sorted. \
+countUniqueValues([1, 1, 1, 1, 1, 2]) // 2 \
+countUniqueValues([1, 2, 3, 4, 4, 4, 7, 7, 12, 12, 13]) // 7 \
+countUniqueValues([]) // 0 \
+countUniqueValues([-2, -1, -1, 0, 1]) // 4
+
+```javascript
+function countUniqueValues2(arr) {
+  /*
+  인자로 주어진 배열 1, 1, 1, 1, 3 이 있다. 
+
+  먼저, 아래처럼 포인터 i, j를 둔다. 
+  i
+  1, 1, 1, 1, 3
+     j
+
+  만약 i와 j가 같으면 j를 오른쪽으로 한 칸 옮긴다. 아래처럼 된다. 
+  i
+  1, 1, 1, 1, 3
+        j
+  
+  역시 i와 j가 같으므로 j를 오른쪽으로 한 칸 옮긴다. 
+  i
+  1, 1, 1, 1, 3
+           j 
+  
+  역시 i와 j가 같으므로 또 j를 오른쪽으로 한 칸 옮긴다. 
+  i
+  1, 1, 1, 1, 3
+              j   
+              
+  이제는 i와 j가 다르다. 이 경우, i를 오른쪽으로 한 칸 옮긴다.
+  그런 다음, 새로운 i의 자리에 j가 가리키는 값을 넣는다. 
+     i
+  1, 1, 1, 1, 3
+              j 
+  
+     i
+  1, 3, 1, 1, 3
+              j 
+
+  */
+  let a = 0;
+  let b = 1;
+
+  while (b < arr.length) {
+    if (arr[a] === arr[b]) {
+      b += 1;
+    } else {
+      a += 1;
+      arr[a] = arr[b];
     }
   }
 }
