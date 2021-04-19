@@ -107,7 +107,7 @@ function sumZero(arr) {
 }
 ```
 
-예-2) Implement a function called countUniqueValues, which accepts a sorted array, and counts the unique values in the array. There can be negative numbers in the array, but it will always be sorted. \
+예-2) Implement a function called countUniqueValues, which accepts a `sorted` array, and counts the unique values in the array. There can be negative numbers in the array, but it will always be sorted. \
 countUniqueValues([1, 1, 1, 1, 1, 2]) // 2 \
 countUniqueValues([1, 2, 3, 4, 4, 4, 7, 7, 12, 12, 13]) // 7 \
 countUniqueValues([]) // 0 \
@@ -149,9 +149,12 @@ function countUniqueValues2(arr) {
               j 
 
   */
+  if (arr.length === 0) return 0;
+
   let a = 0;
   let b = 1;
 
+  // 나는 아래처럼 했는데 사실 for문을 사용하면 더 간결하게 해결할 수 있다.
   while (b < arr.length) {
     if (arr[a] === arr[b]) {
       b += 1;
@@ -160,5 +163,14 @@ function countUniqueValues2(arr) {
       arr[a] = arr[b];
     }
   }
+  // for문으로. (b는 위에 while에서 사용하므로 여기에는 let c를 새로 만들었다.)
+  for (let c = 1; c < arr.length; c++) {
+    if (arr[a] !== arr[c]) {
+      a += 1;
+      arr[a] = arr[c];
+    }
+  }
+
+  return a + 1;
 }
 ```
