@@ -174,3 +174,46 @@ function countUniqueValues2(arr) {
   return a + 1;
 }
 ```
+
+## `3. sliding window`
+
+특정 조건에 따라 ‘윈도우’가 커지기도 하고 아예 없앴다가 새로운 ‘윈도우’를 다시 만들기도 한다. \
+⭐️ 배열이나 문자열의 부분 집합을 계속 따라가면서 특정 조건에 맞는 것을 찾아야하는 문제에서 유용한 방법이다.
+
+예) Write a function called maxSubarraySum which accepts an array of integers and a number called n. The function should calculate the maximum sum of n consecutive elements in the array. \
+maxSubarraySum([1, 2, 5, 2, 8, 1, 5], 2) // 10 \
+maxSubarraySum([1, 2, 5, 2, 8, 1, 5], 4) // 17 \
+maxSubarraySum([4, 2, 1, 6], 1) // 6 \
+maxSubarraySum([4, 2, 1, 6, 2], 4) // 13 \
+maxSubarraySum([], 4) // null
+
+```javascript
+function maxSubarraySum(arr, n) {
+  /*
+  n만큼 숫자들을 더한 뒤에, 맨 앞의 숫자는 빼고 맨 끝의 숫자는 새로 더하면 된다. 
+
+  1, 2, 5, 2, 8, 1, 5
+  예를 들어 n이 3이면, 맨 처음에 1 + 2 + 5를 한다. 
+  그 다음 윈도우에서는 2 + 5 + 2를 해서 어느 합이 더 큰지 비교해야 하는데
+  이 때 2 + 5는 이미 했으므로 반복해서 더할 필요가 없다.
+  그래서 1 + 2 + 5의 합에다가 2를 새롭게 더하고 1을 빼면 된다.
+  매번 이런 방법으로 새로운 합을 구한 뒤, 기존의 합과 비교하여 더 큰 값으로 갱신하면서 진행한다. 
+  */
+  let maxSum = 0;
+  let tempSum;
+  for (i = 0; i < n; i++) {
+    maxSum += arr[i];
+  }
+
+  tempSum = maxSum;
+
+  for (i = n; i < arr.length; i++) {
+    tempSum += arr[i];
+    tempSum -= arr[i - n];
+    if (tempSum > maxSum) maxSum = tempSum;
+    // 또는 maxSum = Math.max(tempSum, maxSum);
+  }
+
+  return maxSum;
+}
+```
