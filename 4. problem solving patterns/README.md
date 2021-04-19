@@ -217,3 +217,32 @@ function maxSubarraySum(arr, n) {
   return maxSum;
 }
 ```
+
+## `4. divide and conquer`
+
+주어진 데이터를 작은 조각으로 나눠서 조건에 맞게 처리하는 것. \
+이 과정에서 소개될 6~7가지 정렬 알고리즘 중에서 quick sort와 merge sort가 divide and conquer의 대표 알고리즘이다. binary search 도 마찬가지. 잘 이용하면 시간 복잡도를 많이 줄일 수 있다. (logN)
+
+예) Given a `sorted` array of integers, write a function called search, that accepts a value and returns the index where the value passed to the function is located. If the value is not found, return -1. \
+search([1, 2, 3, 4, 5, 6], 4) // 3 \
+search([1, 2, 3, 4, 5, 6], 6) // 5 \
+search([1, 2, 3, 4, 5, 6], 11) // -1
+
+```javascript
+function search(arr, n) {
+  let min = 0;
+  let max = arr.length - 1;
+
+  while (min <= max) {
+    let middle = Math.floor((min + max) / 2);
+    if (arr[middle] > n) {
+      max = middle - 1;
+    } else if (arr[middle] < n) {
+      min = middle + 1;
+    } else if (arr[middle] === n) {
+      return middle;
+    }
+  }
+  return -1;
+}
+```
