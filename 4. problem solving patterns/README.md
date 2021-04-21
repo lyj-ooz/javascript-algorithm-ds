@@ -248,3 +248,50 @@ function search(arr, n) {
   return -1;
 }
 ```
+
+## `5. recursion`
+
+하나의 문제를 점점 작은 조각에 적용하면서 어느 끝에 다다를 때까지 계속 반복하면서 풀어나가는 패턴. 회귀 함수는 자기 자신을 호출하는 함수이다. 회귀 함수에 필요한 두 가지 필수 요소는 `base case(end point)`와 `differnt input(회귀 함수가 자기 자신을 호출할 때마다 다른 입력값이 들어가야함)`이다. 이 두 가지는 회귀 함수가 무한히 반복하는 것을 막아주는 요소다. (예: 팩토리얼) \
+
+basically taking one problem and doing it over and over on a smaller piece or on a changing piece until you hit some end point which is called as ‘base case’
+
+- 콜스택(call stack): 스택은 자료구조의 한 종류이다. 함수가 호출되면 콜스택의 맨 위에 위치한다. return 키워드를 만나거나 함수가 끝나면 컴파일러가 콜스택의 맨 위에서 그 함수를 지운다. (pop) 다만 회귀 함수는 end point를 만나기 전까지 콜스택에 새로운 함수를 계속 올린다.
+- recursion을 활용한 디자인 패턴 2가지
+
+  - helper method recursion: 외부 함수(이것은 회귀 함수가 아님) 내에 회귀 함수를 정의하고 호출하는 것. 배열이나 데이터의 목록을 처리해야 할 때 사용할 수 있다.
+
+    ```javascript
+    // 배열에서 홀수 숫자 찾아서 새 배열에 넣기
+    function collectOddNum(arr) {
+      const oddNum = [];
+
+      function helper(helperInput) {
+        if (helperInput.length === 0) return;
+
+        if (helperInput[0] % 2 !== 0) {
+          oddNum.push(helperInput[0]);
+        }
+
+        helper(helperInput.slice(1));
+      }
+
+      helper(arr);
+
+      return oddNum;
+    }
+    ```
+
+  - pure recursion
+
+    ```javascript
+    function collectOddValues2(arr) {
+      let newArr = []; // 함수를 호출할 때마다 새로운 배열을 선언.
+
+      if (arr.length === 0) return newArr;
+
+      if (arr[0] % 2 !== 0) newArr.push(arr[0]);
+
+      newArr = newArr.concat(collectOddValues2(arr.slice(1)));
+      return newArr;
+    }
+    ```
