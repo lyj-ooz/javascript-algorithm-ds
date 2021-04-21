@@ -4,6 +4,8 @@
 - multiple pointers
 - sliding window
 - divide and conquer
+- recursion
+- 외에도..
 - dynamic programming
 - greedy algorithms
 - backtracking
